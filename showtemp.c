@@ -118,7 +118,10 @@ int main(int argc, char* argv[])
         num_prints = atoi(optarg);
         break;
       default:
-        fprintf(stderr, "Syntax: %s -t <Tjmax> -d <delay> -n <num_iters>\n", argv[0]);
+        fprintf(stderr, "Syntax: %s [-t <Tjmax>] [-d <delay>] [-n <num_iters>] [-c]\n", argv[0]);
+        fprintf(stderr, "-t: set TjMax\n");
+        fprintf(stderr, "-d <integer>: delay between updates in seconds\n");
+        fprintf(stderr, "-n <integer>: number of updates (0 means unlimited)\n");
         exit(1);
         break;
     }
