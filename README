@@ -8,9 +8,32 @@ I wanted a simple console utility to test if I had
 installed my heat sink correctly without bothering with
 installing too many other apps and libraries.
 
+NOTE NOTE NOTE
+==============
+
+You must run this program as root.
+
 Compiling
 =========
 
 gcc -o showtemp showtemp.c
 
 How cool is that?!
+
+Screenshot
+==========
+
+$ gcc -Wall showtemp.c
+$ sudo ./a.out -n 0
+Assuming Tjmax of 100C. This is correct for Core 2 Duo/Quad.
+cpu 0 temp 48 | cpu 1 temp 43 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 48 | cpu 1 temp 44 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 48 | cpu 1 temp 43 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 47 | cpu 1 temp 43 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 47 | cpu 1 temp 44 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 47 | cpu 1 temp 43 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 48 | cpu 1 temp 43 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 48 | cpu 1 temp 44 | cpu 2 temp 42 | cpu 3 temp 52
+cpu 0 temp 47 | cpu 1 temp 44 | cpu 2 temp 42 | cpu 3 temp 52
+^C
+$
