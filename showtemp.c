@@ -81,27 +81,63 @@ int temp_val( int cpu_num )
   return temp;
 }
 
-int main(int argc, char* argv[])
+void print_rpt(int num_cpus, int Tjmax)
 {
-  int num_cpus = compute_num_cpus();
   int cpu_num = 0;
-  int Tjmax = 100;
-
-  if (argc > 2) {
-    fprintf(stderr, "Syntax: %s [Tjmax]\n", argv[0]);
-    exit(1);
-  } else if (argc == 2) {
-    Tjmax = atoi( argv[1] );
-    printf("Tjmax: %d\n", Tjmax);
-  } else {
-    printf("Assuming Tjmax of %dC. This is correct for Core 2 Duo/Quad.\n", Tjmax);
-  }
-
   for (cpu_num = 0; cpu_num < num_cpus; ++cpu_num) {
     int temp = Tjmax - temp_val( cpu_num );
     printf("%scpu %d temp %d", (cpu_num > 0 ? " | " : ""), cpu_num, temp);
   }
   printf("\n");
+}
+
+int main(int argc, char* argv[])
+{
+  int num_cpus = 0;
+  int Tjmax = 100;
+  int delay = 1;
+  int opt;
+  int Tjmax_set = 0;
+  int num_prints = 1;
+  int curr_iter = 0;
+  int quiet = 0;
+
+  while ((opt = getopt(argc, argv, "qt:d:n:")) != -1) {
+    switch (opt) {
+      case 'q':
+        quiet = 1;
+        break;
+      case 't':
+        Tjmax = atoi(optarg);
+        Tjmax_set = 1;
+        break;
+      case 'd':
+        delay = atoi(optarg);
+        break;
+      case 'n':
+        num_prints = atoi(optarg);
+        break;
+      default:
+        fprintf(stderr, "Syntax: %s -t <Tjmax> -d <delay> -N <num_iters>\n", argv[0]);
+        exit(1);
+        break;
+    }
+  }
+  
+  if ( !Tjmax_set) {
+    printf("Assuming Tjmax of %dC. This is correct for Core 2 Duo/Quad.\n", Tjmax);
+  }
+
+  curr_iter = 0;
+  num_cpus = compute_num_cpus();
+  while ( (num_prints == 0) || (curr_iter < num_prints) ) {
+    ++curr_iter;
+    print_rpt(num_cpus, Tjmax);
+    if ( curr_iter != num_prints ) {
+      sleep(delay);
+    }
+  }
+
   return 0;
 }
 
