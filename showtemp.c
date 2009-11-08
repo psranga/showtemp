@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
         num_prints = atoi(optarg);
         break;
       default:
-        fprintf(stderr, "Syntax: %s -t <Tjmax> -d <delay> -N <num_iters>\n", argv[0]);
+        fprintf(stderr, "Syntax: %s -t <Tjmax> -d <delay> -n <num_iters>\n", argv[0]);
         exit(1);
         break;
     }
