@@ -1,0 +1,9 @@
+Dead simple temperature monitor for Intel Core 2 CPUs
+running Ubuntu.
+
+Probably not portable to other Linux distribs/AMD CPUs
+etc.
+
+I wanted a simple console utility to test if I had
+installed my heat sink correctly without bothering with
+installing too many other apps and libraries.
