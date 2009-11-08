@@ -12,22 +12,22 @@
 
 static long long unsigned read_reg(int msrdev_fd, int reg_num)
 {
-   int  status;
-   long long unsigned rsl = 0;
+ int  status;
+ long long unsigned rsl = 0;
 
-   status = lseek(msrdev_fd, reg_num, SEEK_SET);
-   if (status == -1) {
-      fprintf(stderr, "unable to seek.\n");
-      exit(1);
-   }
+ status = lseek(msrdev_fd, reg_num, SEEK_SET);
+ if (status == -1) {
+  fprintf(stderr, "unable to seek.\n");
+  exit(1);
+ }
 
-   status = read(msrdev_fd, &rsl, sizeof(long long unsigned));
-   if (status == -1) {
-      fprintf(stderr,
-              "Error reading data from msr file.");
-      exit(1);
-   }
-   return rsl;
+ status = read(msrdev_fd, &rsl, sizeof(long long unsigned));
+ if (status == -1) {
+  fprintf(stderr,
+      "Error reading data from msr file.");
+  exit(1);
+ }
+ return rsl;
 }
 
 // returns ptr to static buffer.
