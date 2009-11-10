@@ -127,12 +127,23 @@ int main(int argc, char* argv[])
     }
   }
   
+  num_cpus = compute_num_cpus();
+  if (num_cpus == 0) {
+    fprintf(stderr, "\nError: Detected no CPUs. This means one of the following.\n\n");
+    fprintf(stderr, "You are not running as root\n");
+    fprintf(stderr, "    if so, prefix the showtemp command line with sudo and rerun.\n\n");
+    fprintf(stderr, "The 'msr' kernel module is not loaded.\n");
+    fprintf(stderr, "    do 'sudo modprobe msr' and rerun showtemp.\n\n");
+    fprintf(stderr, "Your Linux distribution does not create /dev/cpu/*/msr devices.\n");
+    fprintf(stderr, "    showtemp will not work. Ubuntuforums.org is your friend.\n");
+    exit(1);
+  }
+
   if ( !Tjmax_set) {
     printf("Assuming Tjmax of %dC. This is correct for Core 2 Duo/Quad.\n", Tjmax);
   }
 
   curr_iter = 0;
-  num_cpus = compute_num_cpus();
   while ( (num_prints == 0) || (curr_iter < num_prints) ) {
     ++curr_iter;
     print_rpt(num_cpus, Tjmax);
